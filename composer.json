@@ -1,0 +1,12 @@
+{
+    "name": "freyo/xinge",
+    "description": "Tencent Xinge Notification Package for Laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "freyo",
+            "email": "freyhsiao@gmail.com"
+        }
+    ],
+    "require": {}
+}
