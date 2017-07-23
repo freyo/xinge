@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Android extends Notification implements ShouldQueue
+class AndroidPushSingleAccount extends Notification implements ShouldQueue
 {
     use Queueable;
 

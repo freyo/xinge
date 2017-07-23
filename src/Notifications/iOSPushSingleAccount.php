@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class iOS extends Notification implements ShouldQueue
+class iOSPushSingleAccount extends Notification implements ShouldQueue
 {
     use Queueable;
 
