@@ -5,15 +5,11 @@ namespace App\Notifications;
 use Freyo\Xinge\Client\MessageIOS;
 use Freyo\Xinge\Client\XingeApp;
 use Freyo\Xinge\iOSChannel;
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class iOSPushSingleAccount extends Notification implements ShouldQueue
+class iOSPushSingleAccount extends Notification
 {
-    use Queueable;
-
     protected $content, $custom;
 
     /**

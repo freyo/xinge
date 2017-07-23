@@ -6,15 +6,11 @@ use Freyo\Xinge\AndroidChannel;
 use Freyo\Xinge\Client\ClickAction;
 use Freyo\Xinge\Client\Message;
 use Freyo\Xinge\Client\Style;
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class AndroidPushSingleAccount extends Notification implements ShouldQueue
+class AndroidPushSingleAccount extends Notification
 {
-    use Queueable;
-
     protected $content, $title, $custom;
 
     /**
