@@ -39,10 +39,16 @@ class Android extends Notification implements ShouldQueue
         return [AndroidChannel::class];
     }
 
-    public function toXGPush($notifiable, Notification $notification)
+    /**
+     * @param              $notifiable
+     * @param Notification $notification
+     *
+     * @return array
+     */
+    public function toXinge($notifiable, Notification $notification)
     {
         $account = $notifiable instanceof Model
-            ? $notifiable->routeNotificationFor('XGPush') : $notifiable;
+            ? $notifiable->routeNotificationFor('Xinge') : $notifiable;
 
         $message = new Message();
         $message->setTitle($this->title);

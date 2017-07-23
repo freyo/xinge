@@ -37,10 +37,16 @@ class iOS extends Notification implements ShouldQueue
         return [iOSChannel::class];
     }
 
-    public function toXGPush($notifiable, Notification $notification)
+    /**
+     * @param              $notifiable
+     * @param Notification $notification
+     *
+     * @return array
+     */
+    public function toXinge($notifiable, Notification $notification)
     {
         $account = $notifiable instanceof Model
-            ? $notifiable->routeNotificationFor('XGPush') : $notifiable;
+            ? $notifiable->routeNotificationFor('Xinge') : $notifiable;
 
         $environment = config('app.env') === 'production'
             ? XingeApp::IOSENV_PROD : XingeApp::IOSENV_DEV;
