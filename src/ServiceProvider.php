@@ -16,7 +16,7 @@ class ServiceProvider extends LaravelServiceProvider
 
         $this->app->when(AndroidChannel::class)
             ->needs(Client::class)
-            ->give(function () use($config) {
+            ->give(function () use ($config) {
                 return new Client(
                     new XingeApp(
                         $config['android']['access_id'],
@@ -27,7 +27,7 @@ class ServiceProvider extends LaravelServiceProvider
 
         $this->app->when(iOSChannel::class)
             ->needs(Client::class)
-            ->give(function () use($config) {
+            ->give(function () use ($config) {
                 return new Client(
                     new XingeApp(
                         $config['ios']['access_id'],

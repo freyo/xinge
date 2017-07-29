@@ -4,9 +4,8 @@ namespace Freyo\Xinge\Client;
 
 class Message
 {
-
-    const TYPE_NOTIFICATION  = 1;
-    const TYPE_MESSAGE       = 2;
+    const TYPE_NOTIFICATION = 1;
+    const TYPE_MESSAGE = 2;
     const MAX_LOOP_TASK_DAYS = 15;
 
     private $m_title;
@@ -25,11 +24,11 @@ class Message
 
     public function __construct()
     {
-        $this->m_acceptTimes = array();
-        $this->m_multiPkg    = 0;
-        $this->m_raw         = "";
-        $this->m_style       = new Style(0);
-        $this->m_action      = new ClickAction();
+        $this->m_acceptTimes = [];
+        $this->m_multiPkg = 0;
+        $this->m_raw = '';
+        $this->m_style = new Style(0);
+        $this->m_action = new ClickAction();
     }
 
     public function __destruct()
@@ -72,7 +71,7 @@ class Message
     }
 
     /**
-     * 消息类型
+     * 消息类型.
      *
      * @param int $type 1：通知 2：透传消息
      */
@@ -138,22 +137,24 @@ class Message
 
     public function toJson()
     {
-        if (!empty($this->m_raw)) return $this->m_raw;
-        $ret = array();
+        if (!empty($this->m_raw)) {
+            return $this->m_raw;
+        }
+        $ret = [];
         if ($this->m_type == self::TYPE_NOTIFICATION) {
-            $ret['title']       = $this->m_title;
-            $ret['content']     = $this->m_content;
+            $ret['title'] = $this->m_title;
+            $ret['content'] = $this->m_content;
             $ret['accept_time'] = $this->acceptTimeToJson();
-            $ret['builder_id']  = $this->m_style->getBuilderId();
-            $ret['ring']        = $this->m_style->getRing();
-            $ret['vibrate']     = $this->m_style->getVibrate();
-            $ret['clearable']   = $this->m_style->getClearable();
-            $ret['n_id']        = $this->m_style->getNId();
+            $ret['builder_id'] = $this->m_style->getBuilderId();
+            $ret['ring'] = $this->m_style->getRing();
+            $ret['vibrate'] = $this->m_style->getVibrate();
+            $ret['clearable'] = $this->m_style->getClearable();
+            $ret['n_id'] = $this->m_style->getNId();
 
             if (!is_null($this->m_style->getRingRaw())) {
                 $ret['ring_raw'] = $this->m_style->getRingRaw();
             }
-            $ret['lights']    = $this->m_style->getLights();
+            $ret['lights'] = $this->m_style->getLights();
             $ret['icon_type'] = $this->m_style->getIconType();
             if (!is_null($this->m_style->getIconRes())) {
                 $ret['icon_res'] = $this->m_style->getIconRes();
@@ -164,67 +165,83 @@ class Message
             }
 
             $ret['action'] = $this->m_action->toJson();
-
-        } else if ($this->m_type == self::TYPE_MESSAGE) {
-            $ret['title']       = $this->m_title;
-            $ret['content']     = $this->m_content;
+        } elseif ($this->m_type == self::TYPE_MESSAGE) {
+            $ret['title'] = $this->m_title;
+            $ret['content'] = $this->m_content;
             $ret['accept_time'] = $this->acceptTimeToJson();
         }
         $ret['custom_content'] = $this->m_custom;
+
         return json_encode($ret);
     }
 
     public function acceptTimeToJson()
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->m_acceptTimes as $acceptTime) {
             $ret[] = $acceptTime->toArray();
         }
+
         return $ret;
     }
 
     public function isValid()
     {
-        if (is_string($this->m_raw) && !empty($this->raw)) return true;
-        if (!isset($this->m_title))
-            $this->m_title = "";
-        else if (!is_string($this->m_title) || empty($this->m_title))
+        if (is_string($this->m_raw) && !empty($this->raw)) {
+            return true;
+        }
+        if (!isset($this->m_title)) {
+            $this->m_title = '';
+        } elseif (!is_string($this->m_title) || empty($this->m_title)) {
             return false;
-        if (!isset($this->m_content))
-            $this->m_content = "";
-        else if (!is_string($this->m_content) || empty($this->m_content))
+        }
+        if (!isset($this->m_content)) {
+            $this->m_content = '';
+        } elseif (!is_string($this->m_content) || empty($this->m_content)) {
             return false;
-        if (!is_int($this->m_type) || $this->m_type < self::TYPE_NOTIFICATION || $this->m_type > self::TYPE_MESSAGE) return false;
-        if (!is_int($this->m_multiPkg) || $this->m_multiPkg < 0 || $this->m_multiPkg > 1) return false;
+        }
+        if (!is_int($this->m_type) || $this->m_type < self::TYPE_NOTIFICATION || $this->m_type > self::TYPE_MESSAGE) {
+            return false;
+        }
+        if (!is_int($this->m_multiPkg) || $this->m_multiPkg < 0 || $this->m_multiPkg > 1) {
+            return false;
+        }
         if ($this->m_type == self::TYPE_NOTIFICATION) {
-            if (!($this->m_style instanceof Style) || !($this->m_action instanceof ClickAction))
+            if (!($this->m_style instanceof Style) || !($this->m_action instanceof ClickAction)) {
                 return false;
-            if (!$this->m_style->isValid() || !$this->m_action->isValid())
+            }
+            if (!$this->m_style->isValid() || !$this->m_action->isValid()) {
                 return false;
+            }
         }
         if (isset($this->m_expireTime)) {
-            if (!is_int($this->m_expireTime) || $this->m_expireTime > 3 * 24 * 60 * 60)
+            if (!is_int($this->m_expireTime) || $this->m_expireTime > 3 * 24 * 60 * 60) {
                 return false;
+            }
         } else {
             $this->m_expireTime = 0;
         }
 
         if (isset($this->m_sendTime)) {
-            if (strtotime($this->m_sendTime) === false) return false;
+            if (strtotime($this->m_sendTime) === false) {
+                return false;
+            }
         } else {
-            $this->m_sendTime = "2013-12-19 17:49:00";
+            $this->m_sendTime = '2013-12-19 17:49:00';
         }
 
         foreach ($this->m_acceptTimes as $value) {
-            if (!($value instanceof TimeInterval) || !$value->isValid())
+            if (!($value instanceof TimeInterval) || !$value->isValid()) {
                 return false;
+            }
         }
 
         if (isset($this->m_custom)) {
-            if (!is_array($this->m_custom))
+            if (!is_array($this->m_custom)) {
                 return false;
+            }
         } else {
-            $this->m_custom = array();
+            $this->m_custom = [];
         }
 
         if (isset($this->m_loopInterval)) {

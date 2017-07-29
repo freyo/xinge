@@ -4,13 +4,12 @@ namespace Freyo\Xinge\Client;
 
 class TagTokenPair
 {
-
     public $tag;
     public $token;
 
     public function __construct($tag, $token)
     {
-        $this->tag   = strval($tag);
+        $this->tag = strval($tag);
         $this->token = strval($token);
     }
 

@@ -6,7 +6,6 @@ use Freyo\Xinge\Exception;
 
 class RequestBase
 {
-
     //get请求方式
     const METHOD_GET = 'get';
     //post请求方式
@@ -24,24 +23,25 @@ class RequestBase
      *                          CURLOPT_RETURNTRANSFER = false
      *                          )
      *
-     * @return bool|mixed 成功返回数据，失败返回false
      * @throws Exception
+     *
+     * @return bool|mixed 成功返回数据，失败返回false
      */
-    public static function exec($url, $params = array(), $method = self::METHOD_GET, $extra_conf = array())
+    public static function exec($url, $params = [], $method = self::METHOD_GET, $extra_conf = [])
     {
         $params = is_array($params) ? http_build_query($params) : $params;
         //如果是get请求，直接将参数附在url后面
         if ($method == self::METHOD_GET) {
-            $url .= (strpos($url, '?') === false ? '?' : '&') . $params;
+            $url .= (strpos($url, '?') === false ? '?' : '&').$params;
         }
 
         //默认配置
-        $curl_conf = array(
+        $curl_conf = [
             CURLOPT_URL            => $url,  //请求url
             CURLOPT_HEADER         => false,  //不输出头信息
             CURLOPT_RETURNTRANSFER => true, //不输出返回数据
-            CURLOPT_CONNECTTIMEOUT => 3 // 连接超时时间
-        );
+            CURLOPT_CONNECTTIMEOUT => 3, // 连接超时时间
+        ];
 
         //配置post请求额外需要的配置项
         if ($method == self::METHOD_POST) {
@@ -64,7 +64,7 @@ class RequestBase
         //发起请求
         $data = curl_exec($curl_handle);
         if ($data === false) {
-            throw new Exception('CURL ERROR: ' . curl_error($curl_handle));
+            throw new Exception('CURL ERROR: '.curl_error($curl_handle));
         }
         curl_close($curl_handle);
 
