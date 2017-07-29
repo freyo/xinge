@@ -10,7 +10,8 @@ use Illuminate\Notifications\Notification;
 
 class iOSPushSingleAccount extends Notification
 {
-    protected $content, $custom;
+    protected $content;
+    protected $custom;
 
     /**
      * Create a new notification instance.
@@ -24,7 +25,7 @@ class iOSPushSingleAccount extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed $notifiable
+     * @param mixed $notifiable
      *
      * @return array
      */
@@ -52,6 +53,6 @@ class iOSPushSingleAccount extends Notification
         $message->setBadge(1);
         $message->setCustom($this->custom);
 
-        return ['PushSingleAccount', 0, (string)$account, $message, $environment];
+        return ['PushSingleAccount', 0, (string) $account, $message, $environment];
     }
 }

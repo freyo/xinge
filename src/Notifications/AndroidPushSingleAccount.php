@@ -11,14 +11,16 @@ use Illuminate\Notifications\Notification;
 
 class AndroidPushSingleAccount extends Notification
 {
-    protected $content, $title, $custom;
+    protected $content;
+    protected $title;
+    protected $custom;
 
     /**
      * Create a new notification instance.
      */
     public function __construct($content, $title = '', $custom = null)
     {
-        $this->title   = $title;
+        $this->title = $title;
         $this->content = $content;
         $this->custom = $custom;
     }
@@ -26,7 +28,7 @@ class AndroidPushSingleAccount extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed $notifiable
+     * @param mixed $notifiable
      *
      * @return array
      */
@@ -55,9 +57,9 @@ class AndroidPushSingleAccount extends Notification
         $action = new ClickAction();
         $action->setActionType(ClickAction::TYPE_ACTIVITY);
         $message->setAction($action);
-        
+
         $message->setCustom($this->custom);
 
-        return ['PushSingleAccount', 0, (string)$account, $message];
+        return ['PushSingleAccount', 0, (string) $account, $message];
     }
 }

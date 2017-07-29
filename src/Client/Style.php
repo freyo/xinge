@@ -19,13 +19,13 @@ class Style
     public function __construct($builderId, $ring = 0, $vibrate = 0, $clearable = 1, $nId = 0, $lights = 1, $iconType = 0, $styleId = 1)
     {
         $this->m_builderId = $builderId;
-        $this->m_ring      = $ring;
-        $this->m_vibrate   = $vibrate;
+        $this->m_ring = $ring;
+        $this->m_vibrate = $vibrate;
         $this->m_clearable = $clearable;
-        $this->m_nId       = $nId;
-        $this->m_lights    = $lights;
-        $this->m_iconType  = $iconType;
-        $this->m_styleId   = $styleId;
+        $this->m_nId = $nId;
+        $this->m_lights = $lights;
+        $this->m_iconType = $iconType;
+        $this->m_styleId = $styleId;
     }
 
     public function __destruct()
@@ -108,14 +108,27 @@ class Style
             !is_int($this->m_vibrate) || !is_int($this->m_clearable) ||
             !is_int($this->m_lights) || !is_int($this->m_iconType) ||
             !is_int($this->m_styleId)
-        )
+        ) {
             return false;
-        if ($this->m_ring < 0 || $this->m_ring > 1) return false;
-        if ($this->m_vibrate < 0 || $this->m_vibrate > 1) return false;
-        if ($this->m_clearable < 0 || $this->m_clearable > 1) return false;
-        if ($this->m_lights < 0 || $this->m_lights > 1) return false;
-        if ($this->m_iconType < 0 || $this->m_iconType > 1) return false;
-        if ($this->m_styleId < 0 || $this->m_styleId > 1) return false;
+        }
+        if ($this->m_ring < 0 || $this->m_ring > 1) {
+            return false;
+        }
+        if ($this->m_vibrate < 0 || $this->m_vibrate > 1) {
+            return false;
+        }
+        if ($this->m_clearable < 0 || $this->m_clearable > 1) {
+            return false;
+        }
+        if ($this->m_lights < 0 || $this->m_lights > 1) {
+            return false;
+        }
+        if ($this->m_iconType < 0 || $this->m_iconType > 1) {
+            return false;
+        }
+        if ($this->m_styleId < 0 || $this->m_styleId > 1) {
+            return false;
+        }
 
         return true;
     }

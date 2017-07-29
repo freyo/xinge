@@ -4,9 +4,9 @@ namespace Freyo\Xinge\Client;
 
 class MessageIOS
 {
-    const TYPE_APNS_NOTIFICATION   = 11;
+    const TYPE_APNS_NOTIFICATION = 11;
     const TYPE_REMOTE_NOTIFICATION = 12;
-    const MAX_LOOP_TASK_DAYS       = 15;
+    const MAX_LOOP_TASK_DAYS = 15;
 
     private $m_expireTime;
     private $m_sendTime;
@@ -23,8 +23,8 @@ class MessageIOS
 
     public function __construct()
     {
-        $this->m_acceptTimes = array();
-        $this->m_type        = self::TYPE_APNS_NOTIFICATION;
+        $this->m_acceptTimes = [];
+        $this->m_type = self::TYPE_APNS_NOTIFICATION;
     }
 
     public function __destruct()
@@ -82,7 +82,7 @@ class MessageIOS
     }
 
     /**
-     * 消息类型
+     * 消息类型.
      *
      * @param int $type 1：通知 2：静默通知
      */
@@ -128,80 +128,101 @@ class MessageIOS
 
     public function toJson()
     {
-        if (!empty($this->m_raw)) return $this->m_raw;
-        $ret                = $this->m_custom;
+        if (!empty($this->m_raw)) {
+            return $this->m_raw;
+        }
+        $ret = $this->m_custom;
         $ret['accept_time'] = $this->acceptTimeToJson();
 
-        $aps = array();
+        $aps = [];
         if ($this->m_type == self::TYPE_APNS_NOTIFICATION) {
             $aps['alert'] = $this->m_alert;
-            if (isset($this->m_badge)) $aps['badge'] = $this->m_badge;
-            if (isset($this->m_sound)) $aps['sound'] = $this->m_sound;
-            if (isset($this->m_category)) $aps['category'] = $this->m_category;
-        } else if ($this->m_type == self::TYPE_REMOTE_NOTIFICATION) {
+            if (isset($this->m_badge)) {
+                $aps['badge'] = $this->m_badge;
+            }
+            if (isset($this->m_sound)) {
+                $aps['sound'] = $this->m_sound;
+            }
+            if (isset($this->m_category)) {
+                $aps['category'] = $this->m_category;
+            }
+        } elseif ($this->m_type == self::TYPE_REMOTE_NOTIFICATION) {
             $aps['content-available'] = 1;
         }
         $ret['aps'] = $aps;
+
         return json_encode($ret);
     }
 
     public function acceptTimeToJson()
     {
-        $ret = array();
+        $ret = [];
         foreach ($this->m_acceptTimes as $acceptTime) {
             $ret[] = $acceptTime->toArray();
         }
+
         return $ret;
     }
 
     public function isValid()
     {
         if (isset($this->m_expireTime)) {
-            if (!is_int($this->m_expireTime) || $this->m_expireTime > 3 * 24 * 60 * 60)
+            if (!is_int($this->m_expireTime) || $this->m_expireTime > 3 * 24 * 60 * 60) {
                 return false;
+            }
         } else {
             $this->m_expireTime = 0;
         }
 
         if (isset($this->m_sendTime)) {
-            if (strtotime($this->m_sendTime) === false) return false;
+            if (strtotime($this->m_sendTime) === false) {
+                return false;
+            }
         } else {
-            $this->m_sendTime = "2014-03-13 12:00:00";
+            $this->m_sendTime = '2014-03-13 12:00:00';
         }
 
         if (!empty($this->m_raw)) {
-            if (is_string($this->m_raw))
+            if (is_string($this->m_raw)) {
                 return true;
-            else
+            } else {
                 return false;
+            }
         }
         if (!is_int($this->m_type) || $this->m_type < self::TYPE_APNS_NOTIFICATION || $this->m_type > self::TYPE_REMOTE_NOTIFICATION) {
             return false;
         }
 
         foreach ($this->m_acceptTimes as $value) {
-            if (!($value instanceof TimeInterval) || !$value->isValid())
+            if (!($value instanceof TimeInterval) || !$value->isValid()) {
                 return false;
+            }
         }
 
         if (isset($this->m_custom)) {
-            if (!is_array($this->m_custom))
+            if (!is_array($this->m_custom)) {
                 return false;
+            }
         } else {
-            $this->m_custom = array();
+            $this->m_custom = [];
         }
         if ($this->m_type == self::TYPE_APNS_NOTIFICATION) {
-            if (!isset($this->m_alert)) return false;
-            if (!is_string($this->m_alert) && !is_array($this->m_alert))
+            if (!isset($this->m_alert)) {
                 return false;
+            }
+            if (!is_string($this->m_alert) && !is_array($this->m_alert)) {
+                return false;
+            }
         }
         if (isset($this->m_badge)) {
-            if (!is_int($this->m_badge))
+            if (!is_int($this->m_badge)) {
                 return false;
+            }
         }
         if (isset($this->m_sound)) {
-            if (!is_string($this->m_sound))
+            if (!is_string($this->m_sound)) {
                 return false;
+            }
         }
         if (isset($this->m_loopInterval)) {
             if (!(is_int($this->m_loopInterval) && $this->m_loopInterval > 0)) {
