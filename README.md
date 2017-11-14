@@ -11,7 +11,7 @@ This package makes it easy to send notifications using Tencent Xinge with Larave
 You can install this package via composer:
 
 ``` bash
-composer require freyo/xinge:dev-master
+composer require freyo/xinge
 ```
 
 Next add the service provider to your `config/app.php`:
