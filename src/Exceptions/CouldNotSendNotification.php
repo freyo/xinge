@@ -15,7 +15,7 @@ class CouldNotSendNotification extends BaseException
     public static function serviceRespondedWithAnError($message = '', $code = 0)
     {
         return new static(
-            "Xinge responded with an error '{$message}: {$code}'"
+            "Xinge responded with an error '{$message}: {$code}'", $code
         );
     }
 }
