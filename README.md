@@ -4,6 +4,8 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/freyo/xinge.svg?style=flat-square)](https://packagist.org/packages/freyo/xinge)
 
+<img src="https://mc.qcloudimg.com/static/img/3c4f02851231c6238cd7681555ace547/XGPush.svg" width="220" height="220">
+
 This package makes it easy to send notifications using Tencent Xinge with Laravel.
 
 ## Installation
