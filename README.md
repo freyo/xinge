@@ -1,4 +1,4 @@
-# Tencent Xinge Notification Channel for Laravel
+# Tencent Xinge PHP SDK for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/freyo/xinge.svg?style=flat-square)](https://packagist.org/packages/freyo/xinge)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -16,13 +16,17 @@ You can install this package via composer:
 composer require freyo/xinge
 ```
 
-Next add the service provider to your `config/app.php`:
+Next add the service provider and facade to your `config/app.php`:
 
 ```php
 ...
 'providers' => [
     ...
     Freyo\Xinge\ServiceProvider::class,
+],
+'aliases' => [
+    ...
+    'Xinge' => Freyo\Xinge\Facade::class,
 ],
 ...
 ```
@@ -50,9 +54,29 @@ This will load the Twitter app data from the `.env` file. Make sure to use the s
 
 ## Usage
 
-Follow Laravel's documentation to add the channel to your Notification class.
+#### Notification
+
+Follow [Laravel's documentation](https://laravel.com/docs/notifications) to add the channel to your Notification class.
 
 Example: [AndroidPushSingleAccount](https://github.com/freyo/xinge/blob/master/src/Notifications/AndroidPushSingleAccount.php), [iOSPushSingleAccount](https://github.com/freyo/xinge/blob/master/src/Notifications/iOSPushSingleAccount.php).
+
+#### Facade
+
+```php
+Xinge::android()->PushSingleDevice($deviceToken, $message);
+Xinge::android()->PushSingleAccount($deviceType, $account, $message);
+Xinge::android()->PushAllDevices($deviceType, $message);
+Xinge::android()->PushTags($deviceType, $tagList, $tagsOp, $message);
+Xinge::android()->PushAccountList($deviceType, $accountList, $message);
+
+Xinge::ios()->PushSingleDevice($deviceToken, $message, $environment = 0);
+Xinge::ios()->PushSingleAccount($deviceType, $account, $message, $environment = 0);
+Xinge::ios()->PushAllDevices($deviceType, $message, $environment = 0);
+Xinge::ios()->PushTags($deviceType, $tagList, $tagsOp, $message, $environment = 0);
+Xinge::ios()->PushAccountList($deviceType, $accountList, $message, $environment = 0);
+```
+
+[FULL API DOCUMENT](http://docs.developer.qq.com/xg/server_api/rest.html)
 
 ## License
 
