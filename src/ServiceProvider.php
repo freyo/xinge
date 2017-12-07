@@ -58,7 +58,7 @@ class ServiceProvider extends LaravelServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config.php', 'services.xinge'
+            __DIR__.'/config.php', 'services.xinge'
         );
     }
 }

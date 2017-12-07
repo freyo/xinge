@@ -43,16 +43,17 @@ class Client
     /**
      * @param array $response
      *
-     * @return array
      * @throws CouldNotSendNotification
+     *
+     * @return array
      */
     protected function handleProviderResponses($response)
     {
-        $errorCode = (int)array_get($response, 'ret_code');
+        $errorCode = (int) array_get($response, 'ret_code');
 
         if ($errorCode !== self::SUCCESSFUL_SEND) {
             throw CouldNotSendNotification::serviceRespondedWithAnError(
-                (string)array_get($response, 'err_msg'),
+                (string) array_get($response, 'err_msg'),
                 $errorCode
             );
         }

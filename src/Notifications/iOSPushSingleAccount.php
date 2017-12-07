@@ -20,7 +20,7 @@ class iOSPushSingleAccount extends Notification
     public function __construct($content, $custom = null)
     {
         $this->content = $content;
-        $this->custom  = $custom;
+        $this->custom = $custom;
     }
 
     /**
@@ -55,7 +55,7 @@ class iOSPushSingleAccount extends Notification
         $message->setCustom($this->custom);
 
         return function (Client $client) use ($account, $message, $environment) {
-            return $client->PushSingleAccount(0, (string)$account, $message, $environment);
+            return $client->PushSingleAccount(0, (string) $account, $message, $environment);
         };
     }
 }
