@@ -11,7 +11,7 @@ class iOSChannel
     protected $client;
 
     /**
-     * @param Client $Client
+     * @param Client $client
      */
     public function __construct(Client $client)
     {

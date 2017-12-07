@@ -53,7 +53,7 @@ class iOSPushSingleAccount extends Notification
         $message->setBadge(1);
         $message->setCustom($this->custom);
 
-        return function (XingeApp $client) use ($account, $message, $environment) {
+        return function (Client $client) use ($account, $message, $environment) {
             return $client->PushSingleAccount(0, (string) $account, $message, $environment);
         };
     }

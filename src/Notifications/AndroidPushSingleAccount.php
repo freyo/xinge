@@ -3,10 +3,10 @@
 namespace Freyo\Xinge\Notifications;
 
 use Freyo\Xinge\AndroidChannel;
+use Freyo\Xinge\Client;
 use Freyo\Xinge\Client\ClickAction;
 use Freyo\Xinge\Client\Message;
 use Freyo\Xinge\Client\Style;
-use Freyo\Xinge\Client\XingeApp;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 
@@ -61,7 +61,7 @@ class AndroidPushSingleAccount extends Notification
 
         $message->setCustom($this->custom);
 
-        return function (XingeApp $client) use ($account, $message) {
+        return function (Client $client) use ($account, $message) {
             return $client->PushSingleAccount(0, (string) $account, $message);
         };
     }
