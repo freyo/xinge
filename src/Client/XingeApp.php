@@ -36,8 +36,8 @@ class XingeApp
     const RESTAPI_DELETETOKENOFACCOUNT = 'http://openapi.xg.qq.com/v2/application/del_app_account_tokens';
     const RESTAPI_DELETEALLTOKENSOFACCOUNT = 'http://openapi.xg.qq.com/v2/application/del_app_account_all_tokens';
 
-    public $accessId = '';
-    public $secretKey = '';
+    public $accessId = ''; //应用的接入Id
+    public $secretKey = ''; //应用的skey
 
     public function __construct($accessId, $secretKey)
     {
@@ -65,8 +65,6 @@ class XingeApp
 
         return $ret;
     }
-
-    //json转换为数组
 
     /**
      * 推送消息给单个设备.
@@ -132,6 +130,7 @@ class XingeApp
         return $ret;
     }
 
+    //json转换为数组
     protected function json2Array($json)
     {
         $json = stripslashes($json);
@@ -344,8 +343,6 @@ class XingeApp
         return $ret;
     }
 
- //应用的接入Id
-
     /**
      * 推送消息给指定tags的设备
      * 若要推送的tagList只有一项，则tagsOp应为OR.
@@ -412,8 +409,6 @@ class XingeApp
 
         return $this->callRestful(self::RESTAPI_PUSHTAGS, $params);
     }
-
- //应用的skey
 
     /**
      * 使用默认设置推送消息给标签选中设备ios版.
