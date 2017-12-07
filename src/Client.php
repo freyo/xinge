@@ -24,35 +24,39 @@ class Client
     }
 
     /**
-     * @param       $method
-     * @param array ...$parameters
+     * @param string $method
+     * @param array  $arguments
+     *
+     * @return array
      */
-    public function send($method, ...$parameters)
+    public function __call($method, $arguments)
     {
-        try {
-            Log::debug(func_get_args());
-            $response = $this->app->{$method}(...$parameters);
-            Log::debug($response);
-            $this->handleProviderResponses($response);
-        } catch (Exception $e) {
-            Log::error($e);
-        }
+        Log::debug($arguments);
+
+        $response = $this->app->{$method}(...$arguments);
+
+        Log::debug($response);
+
+        return $this->handleProviderResponses($response);
     }
 
     /**
      * @param array $response
      *
+     * @return array
      * @throws CouldNotSendNotification
      */
     protected function handleProviderResponses($response)
     {
-        $errorCode = (int) array_get($response, 'ret_code');
+        $errorCode = (int)array_get($response, 'ret_code');
 
         if ($errorCode !== self::SUCCESSFUL_SEND) {
             throw CouldNotSendNotification::serviceRespondedWithAnError(
-                (string) array_get($response, 'err_msg'),
+                (string)array_get($response, 'err_msg'),
                 $errorCode
             );
         }
+
+        return $response;
     }
 }

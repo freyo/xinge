@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace Freyo\Xinge\Notifications;
 
 use Freyo\Xinge\Client\MessageIOS;
 use Freyo\Xinge\Client\XingeApp;
@@ -38,7 +38,7 @@ class iOSPushSingleAccount extends Notification
      * @param              $notifiable
      * @param Notification $notification
      *
-     * @return array
+     * @return \Closure
      */
     public function toXinge($notifiable, Notification $notification)
     {
@@ -53,6 +53,8 @@ class iOSPushSingleAccount extends Notification
         $message->setBadge(1);
         $message->setCustom($this->custom);
 
-        return ['PushSingleAccount', 0, (string) $account, $message, $environment];
+        return function (XingeApp $client) use ($account, $message, $environment) {
+            return $client->PushSingleAccount(0, (string) $account, $message, $environment);
+        };
     }
 }

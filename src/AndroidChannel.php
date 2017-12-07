@@ -28,8 +28,8 @@ class AndroidChannel
      */
     public function send($notifiable, Notification $notification)
     {
-        $parameters = $notification->toXinge($notifiable, $notification);
+        $callback = $notification->toXinge($notifiable, $notification);
 
-        call_user_func_array([$this->client, 'send'], $parameters);
+        tap($this->client, $callback);
     }
 }

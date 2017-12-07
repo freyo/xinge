@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Notifications;
+namespace Freyo\Xinge\Notifications;
 
 use Freyo\Xinge\AndroidChannel;
 use Freyo\Xinge\Client\ClickAction;
 use Freyo\Xinge\Client\Message;
 use Freyo\Xinge\Client\Style;
+use Freyo\Xinge\Client\XingeApp;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 
@@ -41,7 +42,7 @@ class AndroidPushSingleAccount extends Notification
      * @param              $notifiable
      * @param Notification $notification
      *
-     * @return array
+     * @return \Closure
      */
     public function toXinge($notifiable, Notification $notification)
     {
@@ -60,6 +61,8 @@ class AndroidPushSingleAccount extends Notification
 
         $message->setCustom($this->custom);
 
-        return ['PushSingleAccount', 0, (string) $account, $message];
+        return function (XingeApp $client) use ($account, $message) {
+            return $client->PushSingleAccount(0, (string) $account, $message);
+        };
     }
 }
