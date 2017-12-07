@@ -21,9 +21,9 @@ class AndroidPushSingleAccount extends Notification
      */
     public function __construct($content, $title = '', $custom = null)
     {
-        $this->title   = $title;
+        $this->title = $title;
         $this->content = $content;
-        $this->custom  = $custom;
+        $this->custom = $custom;
     }
 
     /**
@@ -62,7 +62,7 @@ class AndroidPushSingleAccount extends Notification
         $message->setCustom($this->custom);
 
         return function (Client $client) use ($account, $message) {
-            return $client->PushSingleAccount(0, (string)$account, $message);
+            return $client->PushSingleAccount(0, (string) $account, $message);
         };
     }
 }
