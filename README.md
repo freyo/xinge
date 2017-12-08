@@ -6,6 +6,8 @@
 
 <img src="https://mc.qcloudimg.com/static/img/3c4f02851231c6238cd7681555ace547/XGPush.svg" width="220" height="220">
 
+腾讯移动推送（XinGe Push，即 XGPush）
+
 This package makes it easy to send notifications using Tencent Xinge with Laravel.
 
 ## Installation
