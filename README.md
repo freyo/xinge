@@ -33,6 +33,8 @@ Next add the service provider and facade to your `config/app.php`:
 ...
 ```
 
+**Laravel 5.5 uses Package Auto-Discovery, so doesn't require you to manually add the ServiceProvider.**
+
 ### Setting up the Xinge service
 
 You will need to [create](http://xg.qq.com/) a Xinge app in order to use this channel. Within in this app you will find the `access id and access secret`. Place them inside your `.env` file. In order to load them, add this to your `config/services.php` file:
