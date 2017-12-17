@@ -52,7 +52,7 @@ You will need to [create](http://xg.qq.com/) a Xinge app in order to use this ch
 ...
 ```
 
-This will load the Twitter app data from the `.env` file. Make sure to use the same keys you have used there like `XINGE_IOS_ACCESS_ID`.
+This will load the Xinge app data from the `.env` file. Make sure to use the same keys you have used there like `XINGE_IOS_ACCESS_ID`.
 
 ## Usage
 
