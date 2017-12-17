@@ -21,44 +21,54 @@ class ServiceProvider extends LaravelServiceProvider
      */
     public function boot()
     {
-        $config = config('services.xinge');
-
-        $this->app->singleton('xinge.android', function () use ($config) {
-            return new Client(
-                new XingeApp(
-                    $config['android']['access_id'],
-                    $config['android']['secret_key']
-                )
-            );
-        });
-
-        $this->app->singleton('xinge.ios', function () use ($config) {
-            return new Client(
-                new XingeApp(
-                    $config['ios']['access_id'],
-                    $config['ios']['secret_key']
-                )
-            );
-        });
-
-        $this->app->when(AndroidChannel::class)
-            ->needs(Client::class)
-            ->give('xinge.android');
-
-        $this->app->when(iOSChannel::class)
-            ->needs(Client::class)
-            ->give('xinge.ios');
+        //
     }
 
     /**
-     * Register bindings in the container.
+     * Register the service provider.
      *
      * @return void
      */
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config.php', 'services.xinge'
+            __DIR__ . '/config.php', 'services.xinge'
         );
+
+        $this->app->singleton('xinge.android', function ($app) {
+            return new Client(
+                new XingeApp(
+                    $app['config']['services.xinge.android.access_id'],
+                    $app['config']['services.xinge.android.secret_key']
+                )
+            );
+        });
+
+        $this->app->singleton('xinge.ios', function ($app) {
+            return new Client(
+                new XingeApp(
+                    $app['config']['services.xinge.ios.access_id'],
+                    $app['config']['services.xinge.ios.secret_key']
+                )
+            );
+        });
+
+        $this->app->when(AndroidChannel::class)
+                  ->needs(Client::class)
+                  ->give('xinge.android');
+
+        $this->app->when(iOSChannel::class)
+                  ->needs(Client::class)
+                  ->give('xinge.ios');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['xinge.android', 'xinge.ios'];
     }
 }
